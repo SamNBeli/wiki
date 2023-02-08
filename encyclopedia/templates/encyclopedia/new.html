@@ -1,0 +1,28 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Entry
+{% endblock %}
+
+{% block body %}
+    {% if exist %}
+        <h3>{{title}} already exist.</h3>
+        <ul>
+            {% for entry in entries %}
+                {% if title|lower in entry|lower %}
+                    <li><a href="{% url 'encyclopedia:entry' entry %}">{{ entry }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="">
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="Create">
+    </form>
+{% endblock %}
